@@ -1,6 +1,6 @@
 import React from "react";
 
-function ReportRow({ issueData }) {
+function ReportRow({ issueData,StoreArray }) {
   /*TODO:
       1.create an array call cells
       2.create a span with summary and key of main issue and push into cells
@@ -13,13 +13,16 @@ function ReportRow({ issueData }) {
       */
   const cells = [];
   const mainissuecell = (
-    <td>
-      <span>
-        {issueData.key} : {issueData.fields.summary}
-      </span>
-    </td>
+    <td><span>{issueData.key} : {issueData.fields.summary}</span></td>
   );
   cells.push(mainissuecell);
-  return <tr>{cells}</tr>;
+  return(
+  <tr>
+    {cells}
+    {issueData.fields.issuelinks.map(data=>{
+      return console.table(data);
+    })}
+  </tr>
+  );
 }
 export default ReportRow;
