@@ -6,8 +6,7 @@ const ReportContent = ({ issues, issueslink, StoreArray }) => {
     <tbody>
       {issues.map((issueData) => {
         return <ReportRow issueData={issueData}
-        StoreArray={StoreArray
-        } />;
+        StoreArray={StoreArray} />;
       })}
     </tbody>
   );

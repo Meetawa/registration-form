@@ -16,12 +16,35 @@ function ReportRow({ issueData,StoreArray }) {
     <td><span>{issueData.key} : {issueData.fields.summary}</span></td>
   );
   cells.push(mainissuecell);
+
+  const cellsData=StoreArray.map(data=>{
+      const matchingArray=[]; 
+      (issueData.fields.issuelinks.forEach(Element=>{
+        if(Element.type.inward===data){
+          matchingArray.push(Element.inwardIssue?.key);
+          matchingArray.push(Element.inwardIssue?.fields.summary);    
+        }
+        else if(Element.type.outward===data){
+          matchingArray.push(Element.outwardIssue?.key);
+          matchingArray.push(Element.outwardIssue?.fields.summary);    
+        }
+    
+      })
+      )
+      console.log(matchingArray);
+      if(matchingArray.length>0){
+      return <td>{matchingArray.map(matchingIssuesdata=>{
+       return <span>{matchingIssuesdata}</span>
+      })}</td>
+     }
+     else{
+       return <td> </td>
+     }
+      })
   return(
   <tr>
     {cells}
-    {issueData.fields.issuelinks.map(data=>{
-      return console.table(data);
-    })}
+    {cellsData}
   </tr>
   );
 }
