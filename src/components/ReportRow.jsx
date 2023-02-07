@@ -17,34 +17,46 @@ function ReportRow({ issueData,StoreArray }) {
   );
   cells.push(mainissuecell);
 
-  const cellsData=StoreArray.map(data=>{
-      const matchingArray=[]; 
-      (issueData.fields.issuelinks.forEach(Element=>{
+  StoreArray.map(data=>{
+      const matchingIssues=(issueData.fields.issuelinks.filter(Element=>{
         if(Element.type.inward===data){
-          matchingArray.push(Element.inwardIssue?.key);
-          matchingArray.push(Element.inwardIssue?.fields.summary);    
+          return true;
         }
         else if(Element.type.outward===data){
-          matchingArray.push(Element.outwardIssue?.key);
-          matchingArray.push(Element.outwardIssue?.fields.summary);    
+          return true;
         }
-    
+        else{
+          return false;
+        }
+      }))
+      // console.log("matchingIssues is:")
+      // console.log(matchingIssues);
+      matchingIssues.map(matchingIssuesData=>{
+        if(matchingIssuesData.type.inward===data){
+          const matchinginward = (
+            <td><span>{matchingIssuesData.inwardIssue?.key} : {matchingIssuesData.inwardIssue?.fields.summary}</span></td>
+          );
+          cells.push(matchinginward);
+        }
+        else if(matchingIssuesData.type.outward===data){
+          const matchingoutward = (
+            <td><span>{matchingIssuesData.outwardIssue?.key} : {matchingIssuesData.outwardIssue?.fields.summary}</span></td>
+          );
+          cells.push(matchingoutward);
+        }
+        else{
+          const Empty = (
+            <td>  </td>
+          );
+          cells.push(Empty);
+        }
       })
-      )
-      console.log(matchingArray);
-      if(matchingArray.length>0){
-      return <td>{matchingArray.map(matchingIssuesdata=>{
-       return <span>{matchingIssuesdata}</span>
-      })}</td>
-     }
-     else{
-       return <td> </td>
-     }
-      })
+      
+    })
+
   return(
   <tr>
     {cells}
-    {cellsData}
   </tr>
   );
 }
