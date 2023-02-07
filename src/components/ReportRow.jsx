@@ -29,28 +29,20 @@ function ReportRow({ issueData,StoreArray }) {
           return false;
         }
       }))
-      // console.log("matchingIssues is:")
-      // console.log(matchingIssues);
-      matchingIssues.map(matchingIssuesData=>{
-        if(matchingIssuesData.type.inward===data){
-          const matchinginward = (
-            <td><span>{matchingIssuesData.inwardIssue?.key} : {matchingIssuesData.inwardIssue?.fields.summary}</span></td>
-          );
-          cells.push(matchinginward);
-        }
-        else if(matchingIssuesData.type.outward===data){
-          const matchingoutward = (
-            <td><span>{matchingIssuesData.outwardIssue?.key} : {matchingIssuesData.outwardIssue?.fields.summary}</span></td>
-          );
-          cells.push(matchingoutward);
-        }
-        else{
-          const Empty = (
-            <td>  </td>
-          );
-          cells.push(Empty);
-        }
-      })
+      
+      console.log(matchingIssues);
+      if(matchingIssues.length>0){
+        var matchingData;
+        matchingIssues.forEach(matchingIssuesData=>{
+          matchingData=<span>{matchingIssuesData.outwardIssue?.key || matchingIssuesData.wardIssue?.key }</span> 
+        })
+        console.table(matchingData);
+        cells.push(<td>{matchingData}</td>);
+      }
+      else{
+        const empty=<td> </td>
+        cells.push(empty);
+      }
       
     })
 
