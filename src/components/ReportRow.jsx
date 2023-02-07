@@ -19,25 +19,28 @@ function ReportRow({ issueData,StoreArray }) {
 
   StoreArray.map(data=>{
       const matchingIssues=(issueData.fields.issuelinks.filter(Element=>{
-        if(Element.type.inward===data){
-          return true;
+        let directionCheck;
+        if(Element.outwardIssue){
+           directionCheck=Element.type.outward;
+           if(directionCheck==data){
+            return true;
+           }
         }
-        else if(Element.type.outward===data){
-          return true;
-        }
-        else{
-          return false;
+        else if(Element.inwardIssue){
+          directionCheck=Element.type.inward;
+          if(directionCheck==data){
+            return true;
+           }
         }
       }))
-      
-      console.log(matchingIssues);
+      console.log(issueData.key,data,matchingIssues);
       if(matchingIssues.length>0){
-        var matchingData;
+        const span=[];
         matchingIssues.forEach(matchingIssuesData=>{
-          matchingData=<span>{matchingIssuesData.outwardIssue?.key || matchingIssuesData.wardIssue?.key }</span> 
+          const matchingData=<span>{matchingIssuesData.outwardIssue?.key  || matchingIssuesData.inwardIssue?.key }</span> 
+          span.push(matchingData);
         })
-        console.table(matchingData);
-        cells.push(<td>{matchingData}</td>);
+        cells.push(<td>{span}</td>);
       }
       else{
         const empty=<td> </td>
