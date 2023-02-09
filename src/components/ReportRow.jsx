@@ -36,8 +36,8 @@ function ReportRow({ issueData,StoreArray }) {
       console.log(issueData.key,data,matchingIssues);
       if(matchingIssues.length>0){
         const span=[];
-        matchingIssues.forEach(matchingIssuesData=>{
-          const matchingData=<span>{matchingIssuesData.outwardIssue?.key  || matchingIssuesData.inwardIssue?.key } : {matchingIssuesData.outwardIssue?.fields.summary  || matchingIssuesData.inwardIssue?.fields.summary}<br /></span> 
+        matchingIssues.forEach((matchingIssuesData,index)=>{
+          const matchingData=<span key={index}>{matchingIssuesData.outwardIssue?.key  || matchingIssuesData.inwardIssue?.key } : {matchingIssuesData.outwardIssue?.fields.summary  || matchingIssuesData.inwardIssue?.fields.summary}<br /></span> 
           span.push(matchingData);
         })
         cells.push(<td>{span}</td>);

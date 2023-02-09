@@ -41,8 +41,13 @@ function Issuesrelations() {
   },[]);
   const StoreArray=[];
   issueslink.forEach(data=>{
+    if(data.inward!=data.outward){
       StoreArray.push(data.inward)
       StoreArray.push(data.outward)
+    }
+    else{
+        StoreArray.push(data.inward ||data.outward)
+    }
     })
   return (
     <div>
@@ -53,7 +58,6 @@ function Issuesrelations() {
           />
           <ReportContent
           issues={issues}
-          issueslink={issueslink}
           StoreArray={StoreArray}
            />
       </table>

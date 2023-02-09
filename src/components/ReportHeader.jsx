@@ -5,8 +5,8 @@ function ReportHeader({ StoreArray }) {
     <tbody>
       <tr>
         <th>Issues</th>
-        {StoreArray.map((data) => {
-          return <th key={data.id}>{data}</th>;
+        {StoreArray.map((data,i) => {
+          return <th key={i}>{data}</th>;
         })}
       </tr>
     </tbody>

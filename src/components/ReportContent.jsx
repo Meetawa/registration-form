@@ -1,11 +1,12 @@
 import React from "react";
 import ReportRow from "./ReportRow";
 
-const ReportContent = ({ issues, issueslink, StoreArray }) => {
+const ReportContent = ({ issues,StoreArray }) => {
   return (
     <tbody>
-      {issues.map((issueData) => {
-        return <ReportRow issueData={issueData}
+      {issues.map((issueData,index) => {
+        return <ReportRow key={index}
+        issueData={issueData}
         StoreArray={StoreArray} />;
       })}
     </tbody>
